@@ -5,6 +5,16 @@ import Login from "@/views/login/index.vue";
 // import Dashboard from "@/views/dashboard/Dashboard.vue";
 import dashboard from "@/router/modules/dashboard";
 
+const modules: any = import.meta.glob("./modules/**/*.ts", { eager: true });
+const routeModuleList: RouteRecordRaw[] = [];
+
+Object.keys(modules).forEach((key) => {
+  const mod = modules[key].default || {};
+  const modList = Array.isArray(mod) ? [...mod] : [mod];
+  routeModuleList.push(...modList);
+});
+console.log(routeModuleList);
+
 // 2. 定义一些路由
 // 每个路由都需要映射到一个组件。
 // 我们后面再讨论嵌套路由。
@@ -36,4 +46,5 @@ router.beforeEach((to, from, next) => {
   next();
 });
 
+export { routeModuleList };
 export default router;
