@@ -68,6 +68,10 @@ import { reactive, ref } from "vue";
 import { PersonOutline, LockClosedOutline } from "@vicons/ionicons5";
 import { useUserStore } from "@/store/user";
 import { useRouter } from "vue-router";
+import { useMessage } from "naive-ui";
+
+const message = useMessage();
+(<any>window).$message = useMessage();
 
 interface FormState {
   email: string;
@@ -108,17 +112,25 @@ const handleSubmit = () => {
       };
       try {
         // 执行登录操作
-        console.log(params);
-
         userStore
           .login(params)
           .then((_res) => {
-            loading.value = false;
+            // res是userStore里面返回的数据
             console.log(_res);
+            // 关闭窗口
+            // Comment(res);
+            message.success("登陆成功");
+            loading.value = false;
+            // 弹出提示  登陆成功
+            // 跳转回首页
+            router.push({ name: "dashboard" });
           })
           .catch(() => {
+            // console.log(err);
             loading.value = false;
           });
+        // 成功跳转到首页
+        // 失败后提示
       } finally {
         loading.value = false;
       }
