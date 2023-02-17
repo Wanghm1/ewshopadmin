@@ -2,7 +2,6 @@ import { createRouter, createWebHistory } from "vue-router";
 import Home from "@/views/Home.vue";
 import Login from "@/views/login/index.vue";
 
-// import Dashboard from "@/views/dashboard/Dashboard.vue";
 import dashboard from "@/router/modules/dashboard";
 
 const modules: any = import.meta.glob("./modules/**/*.ts", { eager: true });
@@ -24,7 +23,7 @@ const routes = [
   // { path: "/dashboard", name: "dashboard", component: Dashboard },
 ];
 
-const baseRoutes = [...routes, ...dashboard];
+const baseRoutes = [...routes, ...routeModuleList];
 
 // 3. 创建路由实例并传递 `routes` 配置
 // 你可以在这里输入更多的配置，但我们在这里
